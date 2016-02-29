@@ -13,7 +13,10 @@
     "postinstall": "bower install && gulp build"
   },
   "babel": {
-    "presets": ["es2015", "react"]
+    "presets": [
+      "es2015",
+      "react"
+    ]
   },
   "dependencies": {
     "alt": "^0.17.8",
@@ -23,6 +26,7 @@
     "compression": "^1.6.0",
     "express": "^4.13.3",
     "history": "^1.13.0",
+    "iso": "^5.1.0",
     "mongoose": "^4.2.5",
     "morgan": "^1.6.1",
     "react": "^0.14.2",

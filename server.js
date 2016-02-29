@@ -18,6 +18,9 @@ var swig  = require('swig');
 var xml2js = require('xml2js');
 var _ = require('underscore');
 
+var Iso = require('iso');
+var alt = require('./app/alt');
+
 var config = require('./config');
 var routes = require('./app/routes');
 var Character = require('./models/character');
@@ -437,6 +440,10 @@ app.post('/api/report', function(req, res, next) {
 });
 
 app.use(function(req, res) {
+  alt.default.bootstrap(JSON.stringify(res.locals.data || {}));
+
+  var iso = new Iso.default();
+
   Router.match({ routes: routes.default, location: req.url }, function(err, redirectLocation, renderProps) {
     if (err) {
       res.status(500).send(err.message)
@@ -444,7 +451,10 @@ app.use(function(req, res) {
       res.status(302).redirect(redirectLocation.pathname + redirectLocation.search)
     } else if (renderProps) {
         var html = ReactDOM.renderToString(React.createElement(Router.RoutingContext, renderProps));
-        var page = swig.renderFile('views/index.html', { html: html });
+
+        iso.add(html, alt.default.flush());
+
+        var page = swig.renderFile('views/index.html', { html: iso.render() });
         res.status(200).send(page);
     } else {
       res.status(404).send('Page Not Found')

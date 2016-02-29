@@ -7,6 +7,7 @@ class AddCharacterStore {
     this.name = '';
     this.gender = '';
     this.helpBlock = '';
+    this.submittedState = false;
     this.nameValidationState = '';
     this.genderValidationState = '';
   }
@@ -14,6 +15,7 @@ class AddCharacterStore {
   onAddCharacterSuccess(successMessage) {
     this.nameValidationState = 'has-success';
     this.helpBlock = successMessage;
+    this.submittedState = true;
   }
 
   onAddCharacterFail(errorMessage) {
@@ -39,6 +41,15 @@ class AddCharacterStore {
 
   onInvalidGender() {
     this.genderValidationState = 'has-error';
+  }
+
+  onResetCharacter() {
+    this.name = '';
+    this.gender = '';
+    this.helpBlock = '';
+    this.nameValidationState = '';
+    this.genderValidationState = '';
+    this.submittedState = false;
   }
 }
 

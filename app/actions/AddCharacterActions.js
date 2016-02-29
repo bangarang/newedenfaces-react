@@ -8,7 +8,8 @@ class AddCharacterActions {
       'updateName',
       'updateGender',
       'invalidName',
-      'invalidGender'
+      'invalidGender',
+      'resetCharacter'
     );
   }
 
@@ -20,6 +21,7 @@ class AddCharacterActions {
     })
       .done((data) => {
         this.actions.addCharacterSuccess(data.message);
+        setTimeout(this.actions.resetCharacter, 3000);
       })
       .fail((jqXhr) => {
         this.actions.addCharacterFail(jqXhr.responseJSON.message);

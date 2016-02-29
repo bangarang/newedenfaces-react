@@ -7,4 +7,12 @@ import Navbar from './components/Navbar';
 
 let history = createBrowserHistory();
 
-ReactDOM.render(<Router history={history}>{routes}</Router>, document.getElementById('app'));
+import Iso from 'iso';
+import alt from './alt';
+
+// ReactDOM.render(<Router history={history}>{routes}</Router>, document.getElementById('app'));
+
+Iso.bootstrap(function (state, meta) {
+    alt.bootstrap(state);
+    ReactDOM.render(<Router history={history}>{routes}</Router>, document.getElementById('app'));
+});

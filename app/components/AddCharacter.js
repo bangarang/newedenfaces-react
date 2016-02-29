@@ -38,44 +38,69 @@ class AddCharacter extends React.Component {
 
     if (name && gender) {
       AddCharacterActions.addCharacter(name, gender);
+      // setTimeout(this.handleReset, 3000);
     }
   }
 
+  handleReset() {
+    AddCharacterActions.resetCharacter();
+  }
+
   render() {
-    return (
-      <div className='container'>
-        <div className='row flipInX animated'>
-          <div className='col-sm-8'>
-            <div className='panel panel-default'>
-              <div className='panel-heading'>Add Character</div>
-              <div className='panel-body'>
-                <form onSubmit={this.handleSubmit.bind(this)}>
-                  <div className={'form-group ' + this.state.nameValidationState}>
-                    <label className='control-label'>Character Name</label>
-                    <input type='text' className='form-control' ref='nameTextField' value={this.state.name}
-                           onChange={AddCharacterActions.updateName} autoFocus/>
-                    <span className='help-block'>{this.state.helpBlock}</span>
-                  </div>
-                  <div className={'form-group ' + this.state.genderValidationState}>
-                    <div className='radio radio-inline'>
-                      <input type='radio' name='gender' id='female' value='Female' checked={this.state.gender === 'Female'}
-                             onChange={AddCharacterActions.updateGender}/>
-                      <label htmlFor='female'>Female</label>
+    if (!this.state.submittedState){
+      return (
+        <div className='container'>
+          <div className='row flipInX animated' key={this.state.submittedState}>
+            <div className='col-sm-8'>
+              <div className='panel panel-default'>
+                <div className='panel-heading'>Add Character</div>
+                <div className='panel-body'>
+                  <form onSubmit={this.handleSubmit.bind(this)}>
+                    <div className={'form-group ' + this.state.nameValidationState}>
+                      <label className='control-label'>Character Name</label>
+                      <input type='text' className='form-control' ref='nameTextField' value={this.state.name}
+                             onChange={AddCharacterActions.updateName} autoFocus/>
+                      <span className='help-block'>{this.state.helpBlock}</span>
                     </div>
-                    <div className='radio radio-inline'>
-                      <input type='radio' name='gender' id='male' value='Male' checked={this.state.gender === 'Male'}
-                             onChange={AddCharacterActions.updateGender}/>
-                      <label htmlFor='male'>Male</label>
+                    <div className={'form-group ' + this.state.genderValidationState}>
+                      <div className='radio radio-inline'>
+                        <input type='radio' name='gender' id='female' value='Female' checked={this.state.gender === 'Female'}
+                               onChange={AddCharacterActions.updateGender}/>
+                        <label htmlFor='female'>Female</label>
+                      </div>
+                      <div className='radio radio-inline'>
+                        <input type='radio' name='gender' id='male' value='Male' checked={this.state.gender === 'Male'}
+                               onChange={AddCharacterActions.updateGender}/>
+                        <label htmlFor='male'>Male</label>
+                      </div>
                     </div>
-                  </div>
-                  <button type='submit' className='btn btn-primary'>Submit</button>
-                </form>
+                    <button type='submit' className='btn btn-primary'>Submit</button>
+                    <button type='reset' className='btn btn-default pull-right' onClick={this.handleReset}>Clear</button>
+                  </form>
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
-    );
+      );
+    } else  {
+      return (
+        <div className='container'>
+          <div className='row flipInX animated' key={this.state.submittedState}>
+            <div className='col-sm-8'>
+              <div className='panel panel-default'>
+                <div className='panel-body'>
+                    <div className={'form-group ' + this.state.nameValidationState}>
+                      <span className='help-block'>{this.state.helpBlock}</span>
+                    </div>
+                    <a className='btn btn-primary' onClick={this.handleReset}>Add Another Character</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      );
+    }
   }
 }
 
